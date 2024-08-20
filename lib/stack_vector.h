@@ -21,5 +21,7 @@ stack_errors pop(Stack *stack, char *data);
 Stack *init_stack(int stack_size);
 Stack* free_stack(Stack *stack);
 stack_errors print_stack(Stack *stack);
+int is_empty(Stack *stack);
+char peek(Stack *stack);
 
 #endif /* STACK_VECTOR_H */

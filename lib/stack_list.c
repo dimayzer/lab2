@@ -2,7 +2,7 @@
 
 
 
-Stack *init_stack(void){
+Stack *init_stack(int size){
 	Stack *stack = (Stack *)calloc(1, sizeof(Stack));
 
 	if(stack == NULL) return NULL;
@@ -76,4 +76,14 @@ stack_errors print_stack(Stack *stack){
 
 	printf("\n");
 	return SUCCESS;
+}
+
+
+int is_empty(Stack *stack){
+	if(stack->top == NULL) return 1;
+	return 0;
+}
+
+char peek(Stack *stack){
+	return stack->top->data;
 }

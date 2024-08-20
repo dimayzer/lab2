@@ -1,9 +1,39 @@
-list: 
-	clang -c main_list.c -o main.o -Wall -Wextra -Werror -fsanitize=address,undefined -g
-	clang -c lib/stack_list.c -o lib.o -Wall -Wextra -Werror -fsanitize=address,undefined -g 
-	clang main.o lib.o -o bin -Wall -Wextra -Werror -fsanitize=address,undefined -g -lreadline
+TARGET = bin
 
-vector:
-	clang -c main_vector.c -o main.o -Wall -Wextra -Werror -fsanitize=address,undefined -g
-	clang -c lib/stack_vector.c -o lib.o -Wall -Wextra -Werror -fsanitize=address,undefined -g 
-	clang main.o lib.o -o bin -Wall -Wextra -Werror -fsanitize=address,undefined -g -lreadline
+CC = clang
+
+CFLAGS_COMMON = -Wall -Wextra -Werror
+LDFLAGS = -lreadline
+
+
+SAN = -g -fsanitize=undefined
+
+
+
+
+
+STACK_TYPE ?= LIST
+
+ifeq ($(STACK_TYPE), LIST)
+  SRCS = main.c lib/stack_list.c
+else ifeq ($(STACK_TYPE), VECTOR)
+  SRCS = main.c lib/stack_vector.c
+else
+    $(error Invalid STACK_TYPE. Available options: LIST, VECTOR)
+endif
+
+
+CFLAGS = $(CFLAGS_COMMON) $(SAN) -DVARIABLE=$(STACK_TYPE) 
+OBJS = $(SRCS:.c = .o) 
+
+
+$(TARGET): $(OBJS)
+	$(CC) $(OBJS) -o $(TARGET) $(LDFLAGS)
+
+
+%.o: %.c
+	$(CC) $(CFLAGS) -c $< -o $@
+
+
+clean: 
+	rm -f $(TARGET)

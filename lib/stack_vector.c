@@ -66,3 +66,13 @@ stack_errors print_stack(Stack *stack){
 	}
 	return SUCCESS;
 }
+
+
+int is_empty(Stack *stack){
+	if(stack->top == 0) return 1;
+	return 0;
+}
+
+char peek(Stack *stack){
+	return stack->data[stack->top];
+}

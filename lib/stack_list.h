@@ -1,3 +1,4 @@
+
 #ifndef STACK_LIST_H
 #define STACK_LIST_H
 
@@ -24,8 +25,11 @@ typedef struct Stack{
 stack_errors push(Stack *stack, char data);
 stack_errors pop(Stack *stack, char *data);
 Node *add_node(char data);
-Stack *init_stack(void);
+Stack *init_stack(int size);
 Stack * free_stack(Stack *stack);
 stack_errors print_stack(Stack *stack);
+int is_empty(Stack *stack);
+char peek(Stack *stack);
+
 
 #endif /* STACK_LIST_H */
